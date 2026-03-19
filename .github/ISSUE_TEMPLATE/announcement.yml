@@ -5,7 +5,7 @@ body:
   - type: dropdown
     id: severity
     attributes:
-      label: severity
+      label: Severity
       options:
         - info
         - warning
@@ -14,10 +14,10 @@ body:
       required: true
 
   - type: textarea
-    id: body
+    id: descriptions
     attributes:
-      label: Announcement title
-      description: Will be displayed on the status page, must be in plain text
+      label: Descriptions
+      description: Will be displayed on the status page, can use markdown syntax.
       placeholder: |
         Ex) There will be a regularly maintanance job from 02:00 to 04:00 on 1 Jan 2026.
         You may experience some service distruptions.
@@ -27,14 +27,14 @@ body:
   - type: input
     id: expires
     attributes:
-      label: expires (optional)
+      label: Expires On (Optional)
       description: If not being left as blank, the announcement will be automatically closed after the specified date.
       placeholder: "YYYY-MM-DD"
 
   - type: checkboxes
     id: confirm
     attributes:
-      label: confirm
+      label: Confirm
       options:
         - label: I double-checked the content of this announcement.
           required: true
