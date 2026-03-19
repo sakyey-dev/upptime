@@ -36,13 +36,15 @@ status-website:
   customHeadHtml: |
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
-    # ann-wrap { margin: 0 0 12px 0; }
+    #ann-wrap { margin: 16px 0; }
     .ann {
       display: flex; justify-content: space-between; align-items: flex-start;
       gap: 12px; padding: 14px 18px; margin-bottom: 8px;
       border-radius: 8px; font-size: 14px; line-height: 1.6;
       box-sizing: border-box; width: 100%;
+      margin-bottom: 8px;
     }
+    .ann:last-child { margin-bottom: 0; }
     .ann-info     { background: rgba(26,115,232,0.1); border-left: 4px solid #1a73e8; }
     .ann-warning  { background: rgba(245,158,11,0.1); border-left: 4px solid #f59e0b; }
     .ann-critical { background: rgba(217,48,37,0.1);  border-left: 4px solid #d93025; }
@@ -125,18 +127,20 @@ status-website:
         if (!hasVisible) return;
 
         function tryInsert() {
-          var target = document.querySelector('article.up') ||
-                       document.querySelector('article.degraded') ||
-                       document.querySelector('article.down') ||
-                       document.querySelector('article');
-          if (target && target.parentNode) {
-            target.parentNode.insertBefore(wrap, target);
+          var header = document.querySelector('header');
+          var article = document.querySelector('article.up') ||
+                        document.querySelector('article.degraded') ||
+                        document.querySelector('article.down') ||
+                        document.querySelector('article');
+          if (header && header.parentNode && article) {
+            // header 바로 다음, article 바로 앞에 삽입
+            header.parentNode.insertBefore(wrap, header.nextSibling);
             wrap.style.display = 'block';
             return true;
           }
           return false;
         }
-
+        
         if (!tryInsert()) {
           var observer = new MutationObserver(function() {
             if (tryInsert()) observer.disconnect();
