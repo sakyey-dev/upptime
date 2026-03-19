@@ -22,6 +22,7 @@ status-website:
   cname: status.sakyey.kr
   # baseUrl: /your-repo-name
   logoUrl: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.svg
+  faviconSvg: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.svg
   name: sakyey.kr Status
   introTitle: "**사계 대광장(sakyey.kr)** 실시간 운영 현황"
   introMessage: "[사계 대광장](https://sakyey.kr)의 현재 **실시간** 운영 현황이에요. 서버가 아프거나 유지보수 작업 등으로 대광장 서비스가 중단되는 경우, 여기서 현재 서비스 상태 및 관련 안내를 확인하실 수 있어요. ― 서비스가 중단된 기간 동안 급한 사정이 있으시다면, [sakyey.official@gmail.com](mailto:sakyey.official@gmail.com)으로 문의해주세요!"
