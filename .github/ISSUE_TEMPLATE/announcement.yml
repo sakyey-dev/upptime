@@ -38,4 +38,4 @@ body:
       options:
         - label: I double-checked the content of this announcement.
           required: true
-```
+---
