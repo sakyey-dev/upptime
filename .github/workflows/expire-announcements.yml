@@ -37,7 +37,7 @@ jobs:
                 --field state=closed
               gh api "repos/$REPO/issues/$NUM/comments" \
                 --method POST \
-                --field body="📅 만료일($EXP)이 지나 자동으로 공지를 종료합니다."
+                --field body="📅 This announcement has been automatically closed as the expiry date ($EXP) has passed."
             else
               echo "⏭️ Issue #$NUM not yet expired"
             fi
