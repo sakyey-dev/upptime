@@ -112,7 +112,7 @@ status-website:
               '<div class="ann-title">' + icon + ' ' + ann.title + '</div>' +
               (bodyHtml ? '<div class="ann-body">' + bodyHtml + '</div>' : '') +
               '<div class="ann-meta">' + date + '&nbsp;·&nbsp;' +
-                '<a href="' + ann.url + '" target="_blank" rel="noopener">자세히 보기 →</a>' +
+                '<a href="' + ann.url + '" target="_blank" rel="noopener">자세히 보기</a>' +
               '</div>' +
             '</div>' +
             '<button class="ann-close" aria-label="닫기" onclick="' +
