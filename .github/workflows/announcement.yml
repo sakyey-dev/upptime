@@ -28,7 +28,7 @@ jobs:
           ref: gh-pages
           token: ${{ secrets.GH_PAT || github.token }}
 
-      - name: Auto-label severity
+      - name: Auto-label severity (single issue)
         if: github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
@@ -52,6 +52,39 @@ jobs:
             echo "ℹ️ Severity is info, no additional label needed"
           fi
 
+      - name: Auto-label severity (all open announcements)
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh api \
+            "repos/$REPO/issues?labels=announcement&state=open&per_page=50" \
+            --jq '.[] | "\(.number) \(.body)"' | \
+          while IFS=" " read -r NUM BODY; do
+            FULL_BODY=$(gh api "repos/$REPO/issues/$NUM" --jq '.body')
+            SEVERITY=$(echo "$FULL_BODY" \
+              | grep -A3 '### Severity' \
+              | grep -E '^\s*(warning|critical)\s*$' \
+              | xargs | tr '[:upper:]' '[:lower:]')
+
+            if [[ "$SEVERITY" == "warning" || "$SEVERITY" == "critical" ]]; then
+              EXISTING=$(gh api "repos/$REPO/issues/$NUM" --jq '[.labels[].name] | join(",")' )
+              if [[ "$EXISTING" != *"$SEVERITY"* ]]; then
+                curl -s -X POST \
+                  -H "Authorization: Bearer $GH_TOKEN" \
+                  -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/$REPO/issues/$NUM/labels" \
+                  -d "{\"labels\":[\"$SEVERITY\"]}"
+                echo "✅ Labeled issue #$NUM as $SEVERITY"
+              else
+                echo "⏭️ Issue #$NUM already has label $SEVERITY"
+              fi
+            else
+              echo "ℹ️ Issue #$NUM severity is info, no label needed"
+            fi
+          done
+
       - name: Generate announcements.json
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
@@ -70,15 +103,9 @@ jobs:
                 | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
               ),
               severity:  (
-                .body
-                | split("### Severity")
-                | if length > 1 then .[1] else "" end
-                | split("###")[0]
-                | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
-                | ascii_downcase
-                | if . == "warning" then "warning"
-                  elif . == "critical" then "critical"
-                  else "info" end
+                if (.labels | map(.name) | contains(["critical"])) then "critical"
+                elif (.labels | map(.name) | contains(["warning"])) then "warning"
+                else "info" end
               ),
               createdAt: .created_at,
               url:       .html_url
