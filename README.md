@@ -36,7 +36,7 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 ## Notes for Extension
 
 - Added annoucement display feature on status page. All issues labeled with 'announcement' label will be considered as an announcement.
-- Only use pre-defined templates for announcements and maintanance schedule posts. The automation script with github workflow actions are quite subtile.
+- Only use pre-defined templates for announcements and maintanance schedule posts. The automation scripts with github workflow actions are quite subtile.
 - If you need to change slugs for monitoring endpoints, make sure to change `.github/workflows/announcement.yml` and `.github/workflows/maintance-comment-inject.yml` appropriately
 - You may set a color for each announcement by labeling announcement issues with 'warning' or 'critical' label also. The rules are here as following:
   - Only 'annoucement': Will be considered as 'info'-level announcement. Will be displayed in blue.
