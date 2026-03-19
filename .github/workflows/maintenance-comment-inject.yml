@@ -92,23 +92,12 @@ jobs:
           echo "expectedDown:     '$DOWN'"
           echo "expectedDegraded: '$DEGRADED'"
 
-          if [[ -n "$EXPIRES" && "$EXPIRES" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-            CURRENT_TITLE=$(gh api "repos/$REPO/issues/$ISSUE_NUMBER" --jq '.title')
-            if [[ "$CURRENT_TITLE" != *"[expires:"* ]]; then
-              gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
-                --method PATCH \
-                --field title="$CURRENT_TITLE [expires: $EXPIRES]"
-              echo "✅ Title updated: $CURRENT_TITLE [expires: $EXPIRES]"
-            fi
-          else
-            echo "⚠️ Expires '$EXPIRES' is invalid or empty, skipping title update."
-          fi
-
           COMMENT_BLOCK="<!--
           start: ${START}
           end: ${END}
           expectedDown: ${DOWN}
           expectedDegraded: ${DEGRADED}
+          expires: ${EXPIRES}
           -->"
 
           printf '%s' "$ISSUE_BODY" > /tmp/issue_body.txt
@@ -202,22 +191,12 @@ jobs:
             echo "expectedDown:     '$DOWN'"
             echo "expectedDegraded: '$DEGRADED'"
 
-            if [[ -n "$EXPIRES" && "$EXPIRES" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-              if [[ "$TITLE" != *"[expires:"* ]]; then
-                gh api "repos/$REPO/issues/$NUM" \
-                  --method PATCH \
-                  --field title="$TITLE [expires: $EXPIRES]"
-                echo "✅ Title updated: $TITLE [expires: $EXPIRES]"
-              fi
-            else
-              echo "⚠️ Expires '$EXPIRES' is invalid or empty, skipping title update."
-            fi
-
             COMMENT_BLOCK="<!--
           start: ${START}
           end: ${END}
           expectedDown: ${DOWN}
           expectedDegraded: ${DEGRADED}
+          expires: ${EXPIRES}
           -->"
 
             printf '%s' "$BODY" > /tmp/issue_body.txt
