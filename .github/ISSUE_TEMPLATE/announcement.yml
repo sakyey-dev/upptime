@@ -1,5 +1,5 @@
 name: Announcements
-about: Make an announcement
+description: Make an announcement
 labels: ["announcement"]
 body:
   - type: dropdown
