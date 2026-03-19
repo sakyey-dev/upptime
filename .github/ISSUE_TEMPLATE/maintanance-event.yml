@@ -40,10 +40,11 @@ body:
       description: Select all services that will be unavailable during maintenance.
       multiple: true
       options:
-        - API Server
-        - Web Dashboard
-        - Auth Service
-        - Database
+        - Main Page
+        - User Page
+        - Generic API
+        - Streaming API
+        - ActivityPub
         - All Services
     validations:
       required: true
