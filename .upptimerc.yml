@@ -33,6 +33,63 @@ status-website:
     - title: Sakyey
       href: https://sakyey.kr
   robotsText: "User-agent: * \n Disallow: /"
+  # customHeadHtml, customBodyHtml은 맨 위에 announcement 배너를 위한 editing임.
+  customHeadHtml: |
+    <style>
+      .ann { padding: 12px 16px; margin: 12px 0; border-radius: 8px;
+             font-size: 14px; line-height: 1.6; display: flex;
+             justify-content: space-between; align-items: flex-start; gap: 12px; }
+      .ann-info     { background: #e8f4fd; border-left: 4px solid #1a73e8; }
+      .ann-warning  { background: #fff8e1; border-left: 4px solid #f59e0b; }
+      .ann-critical { background: #fdecea; border-left: 4px solid #d93025; }
+      .ann-title    { font-weight: 600; margin-bottom: 4px; }
+      .ann-meta     { font-size: 12px; color: #666; margin-top: 4px; }
+      .ann-close    { background: none; border: none; cursor: pointer;
+                      font-size: 18px; color: #888; flex-shrink: 0; padding: 0; }
+    </style>
+  customBodyHtml: |
+    <div id="ann-container"></div>
+    <script>
+    (async () => {
+      // announcements.json은 같은 Pages 도메인에서 서빙됨
+      const base = document.querySelector('base')?.href || location.origin + '/';
+      try {
+        const res  = await fetch(base + 'announcements.json?t=' + Date.now());
+        const list = await res.json();
+        if (!list.length) return;
+
+        const icons = { info: 'ℹ️', warning: '⚠️', critical: '🚨' };
+        const container = document.getElementById('ann-container');
+
+        list.forEach(ann => {
+          const el = document.createElement('div');
+          el.className = `ann ann-${ann.severity || 'info'}`;
+          el.id = `ann-${ann.id}`;
+          el.innerHTML = `
+            <div style="flex:1">
+              <div class="ann-title">${icons[ann.severity] || 'ℹ️'} ${ann.title}</div>
+              ${ann.body ? `<div>${ann.body.substring(0, 200)}${ann.body.length > 200 ? '…' : ''}</div>` : ''}
+              <div class="ann-meta">
+                ${new Date(ann.createdAt).toLocaleString('ko-KR')}
+                · <a href="${ann.url}" target="_blank">자세히 보기 →</a>
+              </div>
+            </div>
+            <button class="ann-close"
+              onclick="
+                document.getElementById('ann-${ann.id}').style.display='none';
+                const d = JSON.parse(sessionStorage.getItem('ann-dismissed') || '[]');
+                d.push(${ann.id});
+                sessionStorage.setItem('ann-dismissed', JSON.stringify(d));
+              ">✕</button>`;
+
+          // 세션 중 닫은 공지는 다시 안 보임
+          const dismissed = JSON.parse(sessionStorage.getItem('ann-dismissed') || '[]');
+          if (!dismissed.includes(ann.id)) container.appendChild(el);
+        });
+      } catch(e) { /* announcements.json 없으면 조용히 무시 */ }
+    })();
+    </script>
+```
 
 workflowSchedule:
   graphs: "0 0 * * *"
