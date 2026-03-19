@@ -86,17 +86,19 @@ jobs:
 
           # 주석 블록 생성 및 본문 삽입
           COMMENT_BLOCK="<!--
-start: ${START}
-end: ${END}
-expectedDown: ${SERVICES}
--->"
-
+          start: ${START}
+          end: ${END}
+          expectedDown: ${SERVICES}
+          -->"
           NEW_BODY="${COMMENT_BLOCK}
 
-${ISSUE_BODY}"
+          ${ISSUE_BODY}"
+
+          # --field 대신 jq로 JSON 직접 생성해서 넘김
+          printf '%s' "$NEW_BODY" | jq -Rs '{"body": .}' > /tmp/body.json
 
           gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
             --method PATCH \
-            --field body="$NEW_BODY"
+            --input /tmp/body.json
 
           echo "✅ Injected maintenance comment block into issue #$ISSUE_NUMBER"
