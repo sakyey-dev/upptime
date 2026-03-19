@@ -69,8 +69,7 @@ jobs:
           echo "End   (UTC): $END"
 
           SERVICES_RAW=$(echo "$ISSUE_BODY" \
-            | grep -A20 '### Affected Services' \
-            | grep -E '^- ' \
+            | awk '/### Affected Services/{found=1; next} /### Descriptions/{found=0} found && /^- /{print}' \
             | sed 's/^- //' \
             | tr '\n' ',')
 
@@ -179,11 +178,10 @@ jobs:
               continue
             fi
 
-            SERVICES_RAW=$(echo "$BODY" \
-              | grep -A20 '### Affected Services' \
-              | grep -E '^- ' \
-              | sed 's/^- //' \
-              | tr '\n' ',')
+            SERVICES_RAW=$(echo "$ISSUE_BODY" \
+            | awk '/### Affected Services/{found=1; next} /### Descriptions/{found=0} found && /^- /{print}' \
+            | sed 's/^- //' \
+            | tr '\n' ',')
 
             SERVICES=$(echo "$SERVICES_RAW" \
               | sed 's/Main Page/main-page/g' \
