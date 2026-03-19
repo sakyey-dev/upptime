@@ -29,7 +29,9 @@ jobs:
           token: ${{ secrets.GH_PAT || github.token }}
 
       - name: Auto-label severity (single issue)
-        if: github.event_name == 'issues'
+        if: |
+          github.event_name == 'issues' &&
+          !contains(github.event.issue.labels.*.name, 'maintenance')
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
           REPO: ${{ github.repository }}
@@ -60,7 +62,7 @@ jobs:
         run: |
           ISSUES=$(gh api \
             "repos/$REPO/issues?labels=announcement&state=open&per_page=50" \
-            --jq '.[].number')
+            --jq '[.[] | select(.labels | map(.name) | contains(["maintenance"]) | not)] | .[].number')
 
           for NUM in $ISSUES; do
             FULL_BODY=$(gh api "repos/$REPO/issues/$NUM" --jq '.body')
@@ -96,7 +98,7 @@ jobs:
             "repos/$REPO/issues?labels=announcement&state=open&per_page=10" \
             --jq '[.[] | {
               id:        .number,
-              title:     (.title | gsub("\\[expires:[^\\]]+\\]"; "") | ltrimstr(" ") | rtrimstr(" ")),
+              title:     .title,
               body: (
                 .body
                 | split("### Descriptions")
@@ -104,6 +106,13 @@ jobs:
                 | split("### Checklist")[0]
                 | split("### Expires On")[0]
                 | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
+              ),
+              expires: (
+                .body
+                | split("### Expires On")
+                | if length > 1 then .[1] else "" end
+                | split("###")[0]
+                | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
               ),
               severity:  (
                 if (.labels | map(.name) | contains(["critical"])) then "critical"
