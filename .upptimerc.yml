@@ -36,7 +36,7 @@ status-website:
   customHeadHtml: |
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
-      #ann-wrap { margin: 16px 0; }
+      #ann-wrap { margin: 16px 0 32px 0; }
       .ann {
         display: flex; justify-content: space-between; align-items: flex-start;
         gap: 12px; padding: 14px 18px; margin-bottom: 8px;
