@@ -6,21 +6,23 @@ body:
     attributes:
       value: |
         > **Do not edit the HTML comment block** — it is parsed automatically by Upptime to schedule the maintenance window.
+        > Times are in **KST (UTC+9)**. They will be automatically converted to UTC.
 
   - type: input
     id: start
     attributes:
-      label: Start Time (UTC)
-      description: When does the maintenance window begin? Use ISO 8601 format.
-      placeholder: "2025-03-30T17:00:00.000Z"
+      label: Start Time (KST)
+      description: When does the maintenance window begin? (in KST)
+      placeholder: "2025-03-30 17:00"
     validations:
       required: true
 
   - type: input
     id: end
     attributes:
-      label: End Time (UTC)
-      placeholder: "2025-03-30T19:00:00.000Z"
+      label: End Time (KST)
+      description: When does the maintenance window end? (in KST)
+      placeholder: "2025-03-30 19:00"
     validations:
       required: true
 
