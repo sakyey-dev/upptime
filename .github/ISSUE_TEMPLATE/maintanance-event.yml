@@ -6,6 +6,7 @@ body:
     attributes:
       value: |
         > **Do not edit the HTML comment block** — it is parsed automatically by Upptime to schedule the maintenance window.
+        > **Do not add `[expires YYYY-MM-DD]` to the issue title manually** ― the Maintance management CI will do it for you.
         > Times are in **KST (UTC+9)**. They will be automatically converted to UTC.
 
   - type: input
@@ -68,7 +69,5 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I have added `[expires YYYY-MM-DD]` to the issue title.
-          required: true
         - label: I have notified the team of this maintenance window.
           required: true
