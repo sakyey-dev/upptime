@@ -22,6 +22,7 @@ status-website:
   cname: status.sakyey.kr
   # baseUrl: /your-repo-name
   logoUrl: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.svg
+  favicon: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.png
   faviconSvg: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.svg
   name: sakyey.kr Status
   introTitle: "**사계 대광장(sakyey.kr)** 실시간 운영 현황"
