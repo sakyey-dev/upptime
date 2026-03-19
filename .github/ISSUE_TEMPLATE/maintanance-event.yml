@@ -27,7 +27,7 @@ body:
   - type: input
     id: expires
     attributes:
-      label: Announcement Expiry Date
+      label: Expires On
       description: The announcement banner will auto-close after this date. Use the same date as the maintenance end day.
       placeholder: "2025-03-30"
     validations:
