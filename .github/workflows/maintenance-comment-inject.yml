@@ -1,0 +1,66 @@
+name: Inject Maintenance Comment Block
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    # maintenance 라벨이 붙은 Issue에만 동작
+    if: contains(github.event.issue.labels.*.name, 'maintenance')
+    permissions:
+      issues: write
+
+    steps:
+      - name: Parse fields and inject comment block
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          # YAML form 본문에서 각 필드 파싱
+          # GitHub YAML form은 "### 필드명\n\n값" 형식으로 본문을 생성함
+
+          START=$(echo "$ISSUE_BODY" | grep -A2 '### Start Time' | tail -1 | xargs)
+          END=$(echo "$ISSUE_BODY"   | grep -A2 '### End Time'   | tail -1 | xargs)
+
+          # Affected Services 파싱 (드롭다운 복수 선택 → 콤마 구분 슬러그로 변환)
+          SERVICES_RAW=$(echo "$ISSUE_BODY" | grep -A20 '### Affected Services' \
+            | grep -E '^- ' | sed 's/^- //' | tr '\n' ',')
+
+          # 서비스명 → upptime slug 변환 (소문자, 공백→하이픈)
+          SERVICES=$(echo "$SERVICES_RAW" \
+            | sed 's/API Server/api-server/g' \
+            | sed 's/Web Dashboard/web-dashboard/g' \
+            | sed 's/Auth Service/auth-service/g' \
+            | sed 's/Database/database/g' \
+            | sed 's/All Services/*/g' \
+            | sed 's/,$//' \
+            | sed 's/, /,/g')
+
+          # 유효성 검사
+          if [[ -z "$START" || -z "$END" ]]; then
+            echo "Start or End time not found. Skipping injection."
+            exit 0
+          fi
+
+          # 주석 블록 생성
+          COMMENT_BLOCK="<!--
+          start: ${START}
+          end: ${END}
+          expectedDown: ${SERVICES}
+          -->"
+
+          # 기존 본문 앞에 주석 블록 삽입
+          NEW_BODY="${COMMENT_BLOCK}
+
+          ${ISSUE_BODY}"
+
+          # Issue 본문 업데이트
+          gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
+            --method PATCH \
+            --field body="$NEW_BODY"
+
+          echo "✅ Injected maintenance comment block into issue #$ISSUE_NUMBER"
