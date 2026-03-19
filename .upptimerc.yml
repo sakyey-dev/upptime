@@ -36,7 +36,7 @@ status-website:
   customHeadHtml: |
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
-    #ann-wrap { margin: 0 0 12px 0; }
+    # ann-wrap { margin: 0 0 12px 0; }
     .ann {
       display: flex; justify-content: space-between; align-items: flex-start;
       gap: 12px; padding: 14px 18px; margin-bottom: 8px;
@@ -78,7 +78,7 @@ status-website:
         (location.pathname.endsWith('/') ? location.pathname : location.pathname + '/');
 
       try {
-        const res  = await fetch(base + 'announcements.json?_=' + Date.now());
+        const res = await fetch(base + 'announcements.json?_=' + Date.now());
         if (!res.ok) return;
         const list = await res.json();
         if (!list.length) return;
@@ -96,78 +96,63 @@ status-website:
             hour: '2-digit', minute: '2-digit'
           });
 
-          // marked.js로 마크다운 렌더링 (로드 완료 후 사용 가능)
           const bodyHtml = (ann.body && typeof marked !== 'undefined')
             ? marked.parse(ann.body)
-            : (ann.body || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\r?\n/g,'<br>');
+            : (ann.body || '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/\r?\n/g, '<br>');
 
           const el = document.createElement('div');
-          el.className = `ann ann-${ann.severity}`;
-          el.id = `ann-${ann.id}`;
-          el.innerHTML = `
-            <div style="flex:1;min-width:0">
-              <div class="ann-title">${icon} ${ann.title}</div>
-              ${bodyHtml ? `<div class="ann-body">${bodyHtml}</div>` : ''}
-              <div class="ann-meta">
-                ${date}&nbsp;·&nbsp;
-                <a href="${ann.url}" target="_blank" rel="noopener">자세히 보기 →</a>
-              </div>
-            </div>
-            <button class="ann-close" aria-label="닫기"
-              onclick="
-                this.closest('.ann').style.display='none';
-                const d=JSON.parse(sessionStorage.getItem('ann-dismissed')||'[]');
-                d.push(${ann.id});
-                sessionStorage.setItem('ann-dismissed',JSON.stringify(d));
-              ">✕</button>`;
+          el.className = 'ann ann-' + ann.severity;
+          el.id = 'ann-' + ann.id;
+          el.innerHTML =
+            '<div style="flex:1;min-width:0">' +
+              '<div class="ann-title">' + icon + ' ' + ann.title + '</div>' +
+              (bodyHtml ? '<div class="ann-body">' + bodyHtml + '</div>' : '') +
+              '<div class="ann-meta">' + date + '&nbsp;·&nbsp;' +
+                '<a href="' + ann.url + '" target="_blank" rel="noopener">자세히 보기 →</a>' +
+              '</div>' +
+            '</div>' +
+            '<button class="ann-close" aria-label="닫기" onclick="' +
+              'this.closest(\'.ann\').style.display=\'none\';' +
+              'var d=JSON.parse(sessionStorage.getItem(\'ann-dismissed\')||\'[]\');' +
+              'd.push(' + ann.id + ');' +
+              'sessionStorage.setItem(\'ann-dismissed\',JSON.stringify(d));' +
+            '">✕</button>';
           wrap.appendChild(el);
         });
 
         if (!hasVisible) return;
 
-        // Upptime Svelte가 렌더링한 "All systems operational" 배너를 찾아
-        // 그 바로 앞에 ann-wrap을 삽입하는 함수
         function tryInsert() {
-          // Upptime status-page의 overall status 배너 셀렉터들
-          const candidates = [
-            '.overall-status',
-            '[class*="overall"]',
-            '[class*="status-bar"]',
-            '[class*="status-badge"]',
-            'main > section:first-of-type',
-            'main > div > section:first-of-type',
-            'main > div:first-child > div:first-child',
-          ];
-          for (const sel of candidates) {
-            const target = document.querySelector(sel);
-            if (target && target.parentNode && !target.parentNode.contains(wrap)) {
-              target.parentNode.insertBefore(wrap, target);
-              wrap.style.display = 'block';
-              return true;
-            }
+          var target = document.querySelector('article.up') ||
+                       document.querySelector('article.degraded') ||
+                       document.querySelector('article.down') ||
+                       document.querySelector('article');
+          if (target && target.parentNode) {
+            target.parentNode.insertBefore(wrap, target);
+            wrap.style.display = 'block';
+            return true;
           }
           return false;
         }
 
-        // MutationObserver로 Svelte 렌더링 완료를 감지
         if (!tryInsert()) {
-          const observer = new MutationObserver(() => {
+          var observer = new MutationObserver(function() {
             if (tryInsert()) observer.disconnect();
           });
           observer.observe(document.body, { childList: true, subtree: true });
-
-          // 10초 후에도 못 찾으면 observer 해제 후 main 최상단에라도 삽입
-          setTimeout(() => {
+          setTimeout(function() {
             observer.disconnect();
             if (wrap.style.display === 'none') {
-              const main = document.querySelector('main') || document.body;
+              var main = document.querySelector('main') || document.body;
               main.prepend(wrap);
               wrap.style.display = 'block';
             }
           }, 10000);
         }
 
-      } catch (_) {}
+      } catch(e) {}
     })();
     </script>
 
