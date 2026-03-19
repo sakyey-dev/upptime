@@ -31,3 +31,12 @@ With [Upptime](https://upptime.js.org), you can get your own unlimited and free 
 - Powered by: [Upptime](https://github.com/upptime/upptime)
 - Code: [MIT](./LICENSE) © [Anand Chowdhary](https://anandchowdhary.com), supported by [Pabio](https://pabio.com)
 - Data in the `./history` directory: [Open Database License](https://opendatacommons.org/licenses/odbl/1-0/)
+- Slightly Modified by: [@stevenoh0908](https://github.com/stevenoh0908)
+
+## Notes for Extension
+- Added annoucement display feature on status page. All issues labeled with 'announcement' label will be considered as an announcement.
+- You may set a color for each announcement by labeling announcement issues with 'warning' or 'critical' label also. The rules are here as following:
+  - Only 'annoucement': Will be considered as 'info'-level announcement. Will be displayed in blue.
+  - 'announcement' + 'warning': Will be considered as 'warn'-level announcement. Will be displayed in yellow. Useful for notify maintenance schedules.
+  - 'announcement' + 'critical': Will be considered as 'crit'-level annoucement. Will be displayed in red. Useful for notify urgent issues.
+- If the announcement issue is closed, then the announcement display will be disappeared automatically. You may add `[expires: YYYY-MM-DD]` into the title of the issue in order to automatically close the announcement at that date.
