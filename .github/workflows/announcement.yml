@@ -58,18 +58,20 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
           REPO: ${{ github.repository }}
         run: |
-          gh api \
+          ISSUES=$(gh api \
             "repos/$REPO/issues?labels=announcement&state=open&per_page=50" \
-            --jq '.[] | "\(.number) \(.body)"' | \
-          while IFS=" " read -r NUM BODY; do
+            --jq '.[].number')
+
+          for NUM in $ISSUES; do
             FULL_BODY=$(gh api "repos/$REPO/issues/$NUM" --jq '.body')
+            EXISTING=$(gh api "repos/$REPO/issues/$NUM" --jq '[.labels[].name] | join(",")')
+
             SEVERITY=$(echo "$FULL_BODY" \
               | grep -A3 '### Severity' \
               | grep -E '^\s*(warning|critical)\s*$' \
               | xargs | tr '[:upper:]' '[:lower:]')
 
             if [[ "$SEVERITY" == "warning" || "$SEVERITY" == "critical" ]]; then
-              EXISTING=$(gh api "repos/$REPO/issues/$NUM" --jq '[.labels[].name] | join(",")' )
               if [[ "$EXISTING" != *"$SEVERITY"* ]]; then
                 curl -s -X POST \
                   -H "Authorization: Bearer $GH_TOKEN" \
@@ -78,10 +80,10 @@ jobs:
                   -d "{\"labels\":[\"$SEVERITY\"]}"
                 echo "✅ Labeled issue #$NUM as $SEVERITY"
               else
-                echo "⏭️ Issue #$NUM already has label $SEVERITY"
+                echo "⏭️ Issue #$NUM already has $SEVERITY"
               fi
             else
-              echo "ℹ️ Issue #$NUM severity is info, no label needed"
+              echo "ℹ️ Issue #$NUM is info, no label needed"
             fi
           done
 
