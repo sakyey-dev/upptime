@@ -1,4 +1,4 @@
-name: Inject Maintenance Comment Block
+name: Maintenance Management CI
 
 on:
   issues:
