@@ -7,7 +7,6 @@ on:
 jobs:
   inject:
     runs-on: ubuntu-latest
-    # maintenance 라벨이 붙은 Issue에만 동작
     if: contains(github.event.issue.labels.*.name, 'maintenance')
     permissions:
       issues: write
@@ -20,21 +19,47 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          # KST (YYYY-MM-DD HH:MM) → UTC ISO 8601 변환 함수
-          kst_to_utc() {
-            local kst="$1"
-            date -u -d "$kst KST" '+%Y-%m-%dT%H:%M:%S.000Z' 2>/dev/null \
-              || date -u -j -f "%Y-%m-%d %H:%M %Z" "$kst KST" '+%Y-%m-%dT%H:%M:%S.000Z'
+          # 섹션 값 추출 함수 (### 섹션명 다음 첫 번째 비어 있지 않은 줄)
+          parse_field() {
+            local label="$1"
+            echo "$ISSUE_BODY" \
+              | grep -A5 "### ${label}" \
+              | tail -n +2 \
+              | grep -v '^\s*$' \
+              | head -1 \
+              | xargs
           }
 
-          START_KST=$(echo "$ISSUE_BODY" | grep -A2 '### Start Time' | tail -1 | xargs)
-          END_KST=$(echo "$ISSUE_BODY"   | grep -A2 '### End Time'   | tail -1 | xargs)
+          # KST → UTC ISO 8601 변환
+          kst_to_utc() {
+            date -u -d "$1 +0900" '+%Y-%m-%dT%H:%M:%S.000Z'
+          }
+
+          START_KST=$(parse_field "Start Time (KST)")
+          END_KST=$(parse_field "End Time (KST)")
+          EXPIRES=$(parse_field "Expires On")
+
+          echo "Start (KST): '$START_KST'"
+          echo "End   (KST): '$END_KST'"
+          echo "Expires:     '$EXPIRES'"
 
           START=$(kst_to_utc "$START_KST")
           END=$(kst_to_utc "$END_KST")
 
-          SERVICES_RAW=$(echo "$ISSUE_BODY" | grep -A20 '### Affected Services' \
-            | grep -E '^- ' | sed 's/^- //' | tr '\n' ',')
+          if [[ -z "$START" || -z "$END" ]]; then
+            echo "❌ Failed to convert times."
+            exit 1
+          fi
+
+          echo "Start (UTC): $START"
+          echo "End   (UTC): $END"
+
+          # Affected Services 파싱
+          SERVICES_RAW=$(echo "$ISSUE_BODY" \
+            | grep -A20 '### Affected Services' \
+            | grep -E '^- ' \
+            | sed 's/^- //' \
+            | tr '\n' ',')
 
           SERVICES=$(echo "$SERVICES_RAW" \
             | sed 's/Main Page/main-page/g' \
@@ -46,37 +71,29 @@ jobs:
             | sed 's/,$//' \
             | sed 's/, */,/g')
 
-          if [[ -z "$START" || -z "$END" ]]; then
-            echo "❌ Failed to parse or convert times. Input: '$START_KST', '$END_KST'"
-            exit 1
-          fi
-
-          echo "Start (KST): $START_KST → UTC: $START"
-          echo "End   (KST): $END_KST → UTC: $END"
-
-          # Expires On 필드 파싱 후 제목에 자동 추가
-          EXPIRES=$(echo "$ISSUE_BODY" | grep -A2 '### Expires On' | tail -1 | xargs)
-
+          # 제목에 [expires: YYYY-MM-DD] 자동 추가
           if [[ -n "$EXPIRES" && "$EXPIRES" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
             CURRENT_TITLE=$(gh api "repos/$REPO/issues/$ISSUE_NUMBER" --jq '.title')
             if [[ "$CURRENT_TITLE" != *"[expires:"* ]]; then
               gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
                 --method PATCH \
                 --field title="$CURRENT_TITLE [expires: $EXPIRES]"
-              echo "✅ Added expires tag to title: $CURRENT_TITLE [expires: $EXPIRES]"
+              echo "✅ Title updated: $CURRENT_TITLE [expires: $EXPIRES]"
             fi
+          else
+            echo "⚠️ Expires value '$EXPIRES' is invalid or empty, skipping title update."
           fi
 
           # 주석 블록 생성 및 본문 삽입
           COMMENT_BLOCK="<!--
-          start: ${START}
-          end: ${END}
-          expectedDown: ${SERVICES}
-          -->"
+start: ${START}
+end: ${END}
+expectedDown: ${SERVICES}
+-->"
 
           NEW_BODY="${COMMENT_BLOCK}
 
-          ${ISSUE_BODY}"
+${ISSUE_BODY}"
 
           gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
             --method PATCH \
