@@ -4,7 +4,15 @@ repo: upptime # The name of this repository
 
 sites:
   - name: Main Page
-    url: https://sakyey.kr
+    url: https://sakyey.kr/about
+  - name: User Page
+    url: https://sakyey.kr/@sakyey
+  - name: Generic API
+    url: https://sakyey.kr/api/v1/instance
+  - name: Streaming API
+    url: https://sakyey.kr/api/v1/streaming/health
+  - name: ActivityPub
+    url: https://sakyey.kr/.well-known/webfinger?resource=acct:sakyey@sakyey.kr
 assignees: # User to assign downtime issues (optional)
   - stevenoh0908
 
