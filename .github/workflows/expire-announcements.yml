@@ -18,20 +18,27 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
           REPO: ${{ github.repository }}
         run: |
-          TODAY=$(date -u +%Y-%m-%d)
+          TODAY=$(date -u +%Y%m%d)
+          echo "Today: $TODAY"
 
           gh api \
             "repos/$REPO/issues?labels=announcement&state=open&per_page=50" \
             --jq '.[] | select(.title | test("\\[expires: [0-9-]+\\]")) |
                   "\(.number) \(.title | capture("\\[expires: (?P<d>[0-9-]+)\\]").d)"' | \
           while read -r NUM EXP; do
-            if [[ -n "$EXP" && "$EXP" < "$TODAY" ]]; then
+            # YYYY-MM-DD → YYYYMMDD 숫자로 변환 후 비교
+            EXP_NUM=$(echo "$EXP" | tr -d '-' | tr -d ' \n\r')
+            echo "Issue #$NUM expires: $EXP (→ $EXP_NUM) / today: $TODAY"
+
+            if [[ -n "$EXP_NUM" && "$EXP_NUM" =~ ^[0-9]{8}$ && "$EXP_NUM" -lt "$TODAY" ]]; then
               echo "Closing issue #$NUM (expired: $EXP)"
               gh api "repos/$REPO/issues/$NUM" \
                 --method PATCH \
                 --field state=closed
               gh api "repos/$REPO/issues/$NUM/comments" \
                 --method POST \
-                --field body="만료일($EXP)이 지나 자동으로 공지를 종료합니다."
+                --field body="📅 만료일($EXP)이 지나 자동으로 공지를 종료합니다."
+            else
+              echo "⏭️ Issue #$NUM not yet expired"
             fi
           done
