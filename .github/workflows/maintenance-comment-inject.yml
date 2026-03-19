@@ -23,7 +23,6 @@ jobs:
           # KST (YYYY-MM-DD HH:MM) → UTC ISO 8601 변환 함수
           kst_to_utc() {
             local kst="$1"
-            # KST는 UTC+9이므로 9시간 빼면 UTC
             date -u -d "$kst KST" '+%Y-%m-%dT%H:%M:%S.000Z' 2>/dev/null \
               || date -u -j -f "%Y-%m-%d %H:%M %Z" "$kst KST" '+%Y-%m-%dT%H:%M:%S.000Z'
           }
@@ -55,6 +54,20 @@ jobs:
           echo "Start (KST): $START_KST → UTC: $START"
           echo "End   (KST): $END_KST → UTC: $END"
 
+          # Expires On 필드 파싱 후 제목에 자동 추가
+          EXPIRES=$(echo "$ISSUE_BODY" | grep -A2 '### Expires On' | tail -1 | xargs)
+
+          if [[ -n "$EXPIRES" && "$EXPIRES" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            CURRENT_TITLE=$(gh api "repos/$REPO/issues/$ISSUE_NUMBER" --jq '.title')
+            if [[ "$CURRENT_TITLE" != *"[expires:"* ]]; then
+              gh api "repos/$REPO/issues/$ISSUE_NUMBER" \
+                --method PATCH \
+                --field title="$CURRENT_TITLE [expires: $EXPIRES]"
+              echo "✅ Added expires tag to title: $CURRENT_TITLE [expires: $EXPIRES]"
+            fi
+          fi
+
+          # 주석 블록 생성 및 본문 삽입
           COMMENT_BLOCK="<!--
           start: ${START}
           end: ${END}
