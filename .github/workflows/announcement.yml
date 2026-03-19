@@ -97,10 +97,11 @@ jobs:
             --jq '[.[] | {
               id:        .number,
               title:     (.title | gsub("\\[expires:[^\\]]+\\]"; "") | ltrimstr(" ") | rtrimstr(" ")),
-              body:      (
+              body: (
                 .body
                 | split("### Descriptions")
                 | if length > 1 then .[1] else "" end
+                | split("### Checklist")[0]
                 | split("### Expires On")[0]
                 | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
               ),
