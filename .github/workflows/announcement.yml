@@ -1,0 +1,51 @@
+name: Sync Announcements
+
+on:
+  issues:
+    types: [opened, edited, closed, labeled, unlabeled, reopened]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: read
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Generate announcements.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh api "repos/$REPO/issues" \
+            --field labels=announcement \
+            --field state=open \
+            --field per_page=10 \
+            --jq '[.[] | {
+              id: .number,
+              title: .title,
+              body: .body,
+              severity: (
+                if (.labels | map(.name) | contains(["critical"])) then "critical"
+                elif (.labels | map(.name) | contains(["warning"])) then "warning"
+                else "info"
+                end
+              ),
+              createdAt: .created_at,
+              url: .html_url
+            }]' > announcements.json
+
+      - name: Commit & push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add announcements.json
+          git diff --cached --quiet || \
+            git commit -m "chore: sync announcements [skip ci]" && \
+            git push
