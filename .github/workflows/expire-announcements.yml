@@ -20,14 +20,17 @@ jobs:
           TODAY=$(date -u +%Y%m%d)
           echo "Today: $TODAY"
 
-          # announcement 이슈: 제목의 [expires: YYYY-MM-DD] 파싱
-          gh api \
+          # announcement 이슈: 본문 ### Expires On (Optional) 섹션 파싱
+          ISSUE_NUMBERS=$(gh api \
             "repos/$REPO/issues?labels=announcement&state=open&per_page=50" \
-            --jq '.[] | select(.labels | map(.name) | contains(["maintenance"]) | not) |
-                  select(.title | test("\\[expires: [0-9-]+\\]")) |
-                  "\(.number) \(.title | capture("\\[expires: (?P<d>[0-9-]+)\\]").d)"' | \
-          while read -r NUM EXP; do
-            EXP_NUM=$(echo "$EXP" | tr -d '-' | tr -d ' \n\r')
+            --jq '[.[] | select(.labels | map(.name) | contains(["maintenance"]) | not)] | .[].number')
+
+          for NUM in $ISSUE_NUMBERS; do
+            FULL_BODY=$(gh api "repos/$REPO/issues/$NUM" --jq '.body')
+            EXP=$(echo "$FULL_BODY" \
+              | awk '/### Expires On \(Optional\)/{found=1; next} /### /{found=0} found && NF{print; exit}' \
+              | tr -d ' \n\r')
+            EXP_NUM=$(echo "$EXP" | tr -d '-')
             echo "Announcement issue #$NUM expires: $EXP (→ $EXP_NUM) / today: $TODAY"
 
             if [[ -n "$EXP_NUM" && "$EXP_NUM" =~ ^[0-9]{8}$ && "$EXP_NUM" -lt "$TODAY" ]]; then
