@@ -7,11 +7,24 @@ on:
 jobs:
   inject:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'maintenance')
     permissions:
       issues: write
 
     steps:
+      - name: Check maintenance label
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          LABELS=$(gh api "repos/$REPO/issues/$ISSUE_NUMBER" --jq '[.labels[].name] | join(",")')
+          echo "labels=$LABELS" >> $GITHUB_OUTPUT
+          if [[ "$LABELS" == *"maintenance"* ]]; then
+            echo "is_maintenance=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_maintenance=false" >> $GITHUB_OUTPUT
+          fi
       - name: Parse fields and inject comment block
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
