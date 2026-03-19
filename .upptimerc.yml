@@ -49,9 +49,24 @@ status-website:
       .ann-meta     { font-size:12px; color:#777; margin-top:4px; }
       .ann-close    { background:none; border:none; cursor:pointer;
                       font-size:18px; color:#999; padding:0; flex-shrink:0; }
+      /* 마크다운 렌더링 본문 스타일 */
+      .ann-body { margin-top: 6px; font-size: 13px; color: inherit; line-height: 1.7; }
+      .ann-body p  { margin: 4px 0; }
+      .ann-body ul, .ann-body ol { margin: 4px 0; padding-left: 20px; }
+      .ann-body li { margin: 2px 0; }
+      .ann-body code {
+        background: rgba(0,0,0,0.08); border-radius: 3px;
+        padding: 1px 5px; font-size: 12px;
+      }
+      .ann-body a { color: inherit; text-decoration: underline; }
+      .ann-body strong { font-weight: 600; }
+      .ann-body blockquote {
+        border-left: 3px solid rgba(0,0,0,0.2);
+        margin: 4px 0; padding-left: 10px; opacity: 0.8;
+      }
     </style>
 
-  customBodyHtml: |
+  customBodyHtml: customBodyHtml: |
     <div id="ann-wrap"></div>
     <script>
     (async () => {
@@ -60,21 +75,40 @@ status-website:
       const base = location.origin +
         (location.pathname.endsWith('/') ? location.pathname : location.pathname + '/');
 
+      // 마크다운 → HTML 변환 (GitHub API 사용)
+      async function renderMarkdown(text) {
+        if (!text) return '';
+        try {
+          const res = await fetch('https://api.github.com/markdown', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, mode: 'gfm' })
+          });
+          return await res.text();
+        } catch (_) {
+          // API 실패 시 줄바꿈만 처리해서 fallback
+          return text.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                     .replace(/\r?\n/g,'<br>');
+        }
+      }
+
       try {
         const res  = await fetch(base + 'announcements.json?_=' + Date.now());
         if (!res.ok) return;
         const list = await res.json();
         const wrap = document.getElementById('ann-wrap');
 
-        list.forEach(ann => {
+        // 모든 공지 본문을 병렬로 렌더링
+        const rendered = await Promise.all(
+          list.map(ann => renderMarkdown(ann.body))
+        );
+
+        list.forEach((ann, i) => {
           if (dismissed.includes(ann.id)) return;
           const icon = icons[ann.severity] || '📢';
-          const preview = ann.body
-            ? ann.body.replace(/\r?\n/g, ' ').substring(0, 180) +
-              (ann.body.length > 180 ? '…' : '')
-            : '';
           const date = new Date(ann.createdAt).toLocaleString('ko-KR', {
-            year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'
+            year:'numeric', month:'long', day:'numeric',
+            hour:'2-digit', minute:'2-digit'
           });
 
           const el = document.createElement('div');
@@ -83,11 +117,13 @@ status-website:
           el.innerHTML = `
             <div style="flex:1">
               <div class="ann-title">${icon} ${ann.title}</div>
-              ${preview ? `<div>${preview}</div>` : ''}
+              ${rendered[i]
+                ? `<div class="ann-body">${rendered[i]}</div>`
+                : ''}
               <div class="ann-meta">
                 ${date}
                 &nbsp;·&nbsp;
-                <a href="${ann.url}" target="_blank" rel="noopener">자세히 보기 →</a>
+                <a href="${ann.url}" target="_blank" rel="noopener">Issue에서 보기 →</a>
               </div>
             </div>
             <button class="ann-close" aria-label="닫기"
@@ -99,7 +135,7 @@ status-website:
               ">✕</button>`;
           wrap.appendChild(el);
         });
-      } catch (_) { /* announcements.json 없으면 조용히 무시 */ }
+      } catch (_) {}
     })();
     </script>
 
