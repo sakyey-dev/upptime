@@ -1,0 +1,31 @@
+# .github/workflows/expire-announcements.yml
+name: Expire Announcements
+
+on:
+  schedule:
+    - cron: '0 * * * *'   # 매시 정각 체크
+
+jobs:
+  expire:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Close expired announcements
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # 제목에 [expires: 2025-03-20] 형식으로 만료일 지정
+          gh api "repos/$REPO/issues" \
+            --field labels=announcement \
+            --field state=open \
+            --jq '.[] | select(.title | test("\\[expires: ([0-9-]+)\\]")) |
+                  {id: .number, exp: (.title | capture("\\[expires: (?P<d>[0-9-]+)\\]").d)}' |
+          while read -r line; do
+            ID=$(echo $line | jq -r .id)
+            EXP=$(echo $line | jq -r .exp)
+            if [[ "$EXP" < "$(date -u +%Y-%m-%d)" ]]; then
+              gh issue close $ID -R $REPO --comment "만료일이 지나 자동으로 공지를 종료합니다."
+            fi
+          done
