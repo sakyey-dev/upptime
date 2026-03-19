@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <clipPath id="roundedSquare">
+      <rect width="512" height="512" rx="110" ry="110"/>
+    </clipPath>
+
+    <radialGradient id="gradGreen" cx="50%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#8FD400"/>
+      <stop offset="100%" stop-color="#5AAF00"/>
+    </radialGradient>
+    <radialGradient id="gradOrange" cx="20%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#E05A10"/>
+      <stop offset="100%" stop-color="#B84000"/>
+    </radialGradient>
+    <radialGradient id="gradMagenta" cx="80%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#E832C8"/>
+      <stop offset="100%" stop-color="#B800A0"/>
+    </radialGradient>
+    <radialGradient id="gradBlue" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" stop-color="#40C8F0"/>
+      <stop offset="100%" stop-color="#1098D0"/>
+    </radialGradient>
+
+    <filter id="innerShadow">
+      <feOffset dx="0" dy="3"/>
+      <feGaussianBlur stdDeviation="6" result="offset-blur"/>
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+      <feFlood flood-color="rgba(0,0,0,0.18)" flood-opacity="1" result="color"/>
+      <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <g clip-path="url(#roundedSquare)">
+
+    <rect width="512" height="512" fill="#F6F4F0"/>
+
+    <!-- 배경 제외한 전체 콘텐츠를 중심 기준 1.18배 확대 -->
+    <g transform="translate(256,256) scale(1.18) translate(-256,-256)">
+
+      <g transform="rotate(-45, 256, 256)">
+
+        <!-- 위: 봄 GREEN -->
+        <path d="
+          M256,256
+          C210,210 130,120 256,30
+          C382,120 302,210 256,256Z
+        " fill="url(#gradGreen)" opacity="0.97"/>
+
+        <!-- 왼: 겨울 BLUE -->
+        <path d="
+          M256,256
+          C210,210 120,130 30,256
+          C120,382 210,302 256,256Z
+        " fill="url(#gradBlue)" opacity="0.97"/>
+
+        <!-- 오른: 여름 MAGENTA -->
+        <path d="
+          M256,256
+          C302,210 392,120 482,256
+          C392,382 302,302 256,256Z
+        " fill="url(#gradMagenta)" opacity="0.97"/>
+
+        <!-- 아래: 가을 ORANGE -->
+        <path d="
+          M256,256
+          C210,302 120,392 256,482
+          C392,392 302,302 256,256Z
+        " fill="url(#gradOrange)" opacity="0.97"/>
+
+        <!-- 흰 중앙선 -->
+        <line x1="256" y1="324" x2="256" y2="61"  stroke="white" stroke-width="3" opacity="0.35"/>
+        <line x1="188" y1="256" x2="61"  y2="256" stroke="white" stroke-width="3" opacity="0.35"/>
+        <line x1="324" y1="256" x2="451" y2="256" stroke="white" stroke-width="3" opacity="0.35"/>
+        <line x1="256" y1="324" x2="256" y2="451" stroke="white" stroke-width="3" opacity="0.35"/>
+
+        <!-- 끝 동그라미 -->
+        <circle cx="256" cy="52"  r="9" fill="white" opacity="0.6"/>
+        <circle cx="52"  cy="256" r="9" fill="white" opacity="0.6"/>
+        <circle cx="460" cy="256" r="9" fill="white" opacity="0.6"/>
+        <circle cx="256" cy="460" r="9" fill="white" opacity="0.6"/>
+
+      </g>
+
+      <!-- 중앙 원 -->
+      <circle cx="256" cy="256" r="68" fill="white" filter="url(#innerShadow)" opacity="0.96"/>
+
+    </g>
+
+    <!-- 외곽 링 -->
+    <rect width="512" height="512" rx="110" ry="110"
+      fill="none" stroke="white" stroke-width="10" opacity="0.25"/>
+
+  </g>
+</svg>
