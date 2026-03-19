@@ -31,7 +31,7 @@ status-website:
       href: /
     - title: Sakyey
       href: https://sakyey.kr
-  robotsText: "User-agent: * \n Disallow: /"
+  #robotsText: "User-agent: * \n Disallow: /"
   # customHeadHtml, customBodyHtml은 맨 위에 announcement 배너를 위한 editing임.
   customHeadHtml: |
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
