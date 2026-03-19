@@ -3,34 +3,25 @@ owner: sakyey-dev # Your GitHub organization or username, where this repository 
 repo: upptime # The name of this repository
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Test Broken Site
-    url: https://thissitedoesnotexist.koj.co
-  - name: IPv6 test
-    url: forwardemail.net
-    port: 80
-    check: "tcp-ping"
-    ipv6: true
+  - name: Main Page
+    url: https://sakyey.kr
+assignees: # User to assign downtime issues (optional)
+  - stevenoh0908
 
 status-website:
   # Add your custom domain name, or remove the `cname` line if you don't have a domain
   # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
   cname: status.sakyey.kr
   # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  logoUrl: https://raw.githubusercontent.com/sakyey-dev/upptime/refs/heads/master/assets/sakyey_icon.svg
+  name: sakyey.kr Status
+  introTitle: "**사계 대광장(sakyey.kr)** 현재 운영 상태"
+  introMessage: "[사계 대광장](https://sakyey.kr)의 현재 **실시간** 운영 상태에요. 대광장 서비스가 중단되거나, 유지보수를 위한 작업이 있을 경우 여기서 서비스 상태를 확인하실 수 있어요. ― 장기간 서비스가 두절되거나 급한 사정이 있으시다면, [sakyey.official@gmail.com](mailto:sakyey.official@gmail.com)으로 문의해주세요!"
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
+    - title: Sakyey
+      href: https://sakyey.kr
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration
