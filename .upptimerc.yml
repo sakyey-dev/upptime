@@ -32,5 +32,13 @@ status-website:
       href: https://sakyey.kr
   robotsText: "User-agent: * \n Disallow: /"
 
+workflowSchedule:
+  graphs: "0 0 * * *"
+  responseTime: "0 3 * * *"
+  staticSite: "0 2 * * *"
+  summary: "0 0 * * *"
+  updates: "30 3 * * *"
+  uptime: "*/10 * * * *"
+
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration
