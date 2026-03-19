@@ -100,21 +100,35 @@ jobs:
               id:        .number,
               title:     .title,
               body: (
-                .body
-                | split("### Descriptions")
-                | if length > 1 then .[1] else "" end
-                | split("### Checklist")[0]
-                | split("### Expires On (Optional)")[0]
-                | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
+                .body |
+                # announcement 이슈: ### Descriptions 섹션
+                if test("### Descriptions") then
+                  split("### Descriptions")[1]
+                  | split("### Expires On")[0]
+                  | split("### Checklist")[0]
+                  | split("### Confirm")[0]
+                  | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
+                # maintenance 이슈: ### Details 섹션
+                elif test("### Details") then
+                  split("### Details")[1]
+                  | split("### Checklist")[0]
+                  | split("### Confirm")[0]
+                  | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
+                else "" end
               ),
               expires: (
-                .body
-                | split("### Expires On (Optional)")
-                | if length > 1 then .[1] else "" end
-                | split("###")[0]
-                | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
+                .body |
+                if test("### Expires On \\(Optional\\)") then
+                  split("### Expires On (Optional)")[1]
+                  | split("###")[0]
+                  | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
+                elif test("### Expires On") then
+                  split("### Expires On")[1]
+                  | split("###")[0]
+                  | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
+                else "" end
               ),
-              severity:  (
+              severity: (
                 if (.labels | map(.name) | contains(["critical"])) then "critical"
                 elif (.labels | map(.name) | contains(["warning"])) then "warning"
                 else "info" end
