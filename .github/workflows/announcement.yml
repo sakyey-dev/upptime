@@ -19,7 +19,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     permissions:
       contents: write
-      issues: read
+      issues: write
 
     steps:
       - name: Checkout gh-pages
@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.GH_PAT || github.token }}
 
       - name: Auto-label severity
-        if: github.event_name == 'issues' && github.event.action == 'opened'
+        if: github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
           REPO: ${{ github.repository }}
@@ -70,9 +70,15 @@ jobs:
                 | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
               ),
               severity:  (
-                if (.labels | map(.name) | contains(["critical"])) then "critical"
-                elif (.labels | map(.name) | contains(["warning"])) then "warning"
-                else "info" end
+                .body
+                | split("### Severity")
+                | if length > 1 then .[1] else "" end
+                | split("###")[0]
+                | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
+                | ascii_downcase
+                | if . == "warning" then "warning"
+                  elif . == "critical" then "critical"
+                  else "info" end
               ),
               createdAt: .created_at,
               url:       .html_url
