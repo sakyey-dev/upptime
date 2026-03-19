@@ -9,7 +9,7 @@ body:
       options:
         - info
         - warning
-        - Critical
+        - critical
     validations:
       required: true
 
