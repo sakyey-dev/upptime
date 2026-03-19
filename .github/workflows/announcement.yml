@@ -2,7 +2,7 @@ name: Announcements CI
 
 on:
   issues:
-    types: [opened, edited, closed, labeled, unlabeled, reopened]
+    types: [opened, edited, closed, reopened]
   workflow_dispatch:
   workflow_run:
     workflows:
