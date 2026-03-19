@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Close expired announcements
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           REPO: ${{ github.repository }}
         run: |
           # 제목에 [expires: 2025-03-20] 형식으로 만료일 지정
