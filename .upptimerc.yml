@@ -95,7 +95,7 @@ status-website:
           const icon = icons[ann.severity] || '📢';
           const date = new Date(ann.createdAt).toLocaleString('ko-KR', {
             year: 'numeric', month: 'long', day: 'numeric',
-            hour: '2-digit', minute: '2-digit'
+            hour: '2-digit', minute: '2-digit'. hour12: false
           });
 
           const bodyHtml = (ann.body && typeof marked !== 'undefined')
