@@ -166,11 +166,11 @@ status-website:
     </script>
 
 workflowSchedule:
-  summary: "0 0 * * *" # updates every 00:00
-  responseTime: "0 2 * * *" # updates every 02:00 
-  updates: "30 2 * * *" # updates every 02:30 (after responseTime CI)
-  graphs: "0 3 * * *" # updates every 03:00 (after responseTime CI)
-  staticSite: "0 4 * * *" # updates every 01:00 (after graphs CI)
+  summary: "0 0 * * *" # updates every 00:00 ... generates summary of previous uptime checks
+  responseTime: "0 2 * * *" # updates every 02:00 ... history/yml updates
+  updates: "30 2 * * *" # updates every 02:30 (after responseTime CI) ... dependence updates
+  graphs: "0 3 * * *" # updates every 03:00 (after responseTime CI) ... generate 7-days graphs
+  staticSite: "0 4 * * *" # updates every 04:00 (after graphs CI) ... generate and deploy status site
   uptime: "*/10 * * * *" # for fallback checks. using manual triggers.
 
 # Upptime also supports notifications, assigning issues, and more
