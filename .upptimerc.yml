@@ -36,75 +36,75 @@ status-website:
   customHeadHtml: |
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <style>
-    #ann-wrap { margin: 16px 0; }
-    .ann {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 12px; padding: 14px 18px; margin-bottom: 8px;
-      border-radius: 8px; font-size: 14px; line-height: 1.6;
-      box-sizing: border-box; width: 100%;
-      margin-bottom: 8px;
-    }
-    .ann:last-child { margin-bottom: 0; }
-    .ann-info     { background: rgba(26,115,232,0.1); border-left: 4px solid #1a73e8; }
-    .ann-warning  { background: rgba(245,158,11,0.1); border-left: 4px solid #f59e0b; }
-    .ann-critical { background: rgba(217,48,37,0.1);  border-left: 4px solid #d93025; }
-    .ann-title { font-weight: 600; margin-bottom: 4px; color: inherit; }
-    .ann-body  { font-size: 13px; color: inherit; line-height: 1.7; margin-top: 4px; }
-    .ann-body p  { margin: 2px 0; }
-    .ann-body ul, .ann-body ol { margin: 4px 0; padding-left: 18px; }
-    .ann-body li { margin: 2px 0; }
-    .ann-body a  { color: inherit; text-decoration: underline; }
-    .ann-body strong { font-weight: 600; }
-    .ann-body code {
-      background: rgba(0,0,0,0.08); border-radius: 3px;
-      padding: 1px 5px; font-size: 12px; font-family: monospace;
-    }
-    .ann-meta { font-size: 11px; opacity: 0.55; margin-top: 6px; }
-    .ann-meta a { color: inherit; text-decoration: underline; }
-    .ann-close {
-      background: none; border: none; cursor: pointer;
-      font-size: 20px; color: inherit; opacity: 0.35;
-      padding: 0; flex-shrink: 0; line-height: 1;
-      transition: opacity .15s;
-    }
-    .ann-close:hover { opacity: 0.7; }
+      #ann-wrap { margin: 16px 0; }
+      .ann {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        gap: 12px; padding: 14px 18px; margin-bottom: 8px;
+        border-radius: 8px; font-size: 14px; line-height: 1.6;
+        box-sizing: border-box; width: 100%;
+      }
+      .ann:last-child { margin-bottom: 0; }
+      .ann-info     { background: rgba(26,115,232,0.1); border-left: 4px solid #1a73e8; }
+      .ann-warning  { background: rgba(245,158,11,0.1); border-left: 4px solid #f59e0b; }
+      .ann-critical { background: rgba(217,48,37,0.1);  border-left: 4px solid #d93025; }
+      .ann-title { font-weight: 600; margin-bottom: 4px; color: inherit; }
+      .ann-body  { font-size: 13px; color: inherit; line-height: 1.7; margin-top: 4px; }
+      .ann-body p  { margin: 2px 0; }
+      .ann-body ul, .ann-body ol { margin: 4px 0; padding-left: 18px; }
+      .ann-body li { margin: 2px 0; }
+      .ann-body a  { color: inherit; text-decoration: underline; }
+      .ann-body strong { font-weight: 600; }
+      .ann-body code {
+        background: rgba(0,0,0,0.08); border-radius: 3px;
+        padding: 1px 5px; font-size: 12px; font-family: monospace;
+      }
+      .ann-meta { font-size: 11px; opacity: 0.55; margin-top: 6px; }
+      .ann-meta a { color: inherit; text-decoration: underline; }
+      .ann-close {
+        background: none; border: none; cursor: pointer;
+        font-size: 20px; color: inherit; opacity: 0.35;
+        padding: 0; flex-shrink: 0; line-height: 1;
+      }
+      .ann-close:hover { opacity: 0.7; }
     </style>
 
   customBodyHtml: |
     <div id="ann-wrap" style="display:none"></div>
     <script>
-    (async () => {
-      const icons = { info: 'ℹ️', warning: '⚠️', critical: '🚨' };
-      const dismissed = JSON.parse(sessionStorage.getItem('ann-dismissed') || '[]');
-      const base = location.origin +
+    (async function() {
+      var icons = { info: 'ℹ️', warning: '⚠️', critical: '🚨' };
+      var dismissed = JSON.parse(sessionStorage.getItem('ann-dismissed') || '[]');
+      var base = location.origin +
         (location.pathname.endsWith('/') ? location.pathname : location.pathname + '/');
 
       try {
-        const res = await fetch(base + 'announcements.json?_=' + Date.now());
+        var res = await fetch(base + 'announcements.json?_=' + Date.now());
         if (!res.ok) return;
-        const list = await res.json();
+        var list = await res.json();
         if (!list.length) return;
 
-        const wrap = document.getElementById('ann-wrap');
-        let hasVisible = false;
+        var wrap = document.getElementById('ann-wrap');
+        var hasVisible = false;
 
-        list.forEach(ann => {
-          if (dismissed.includes(ann.id)) return;
+        list.forEach(function(ann) {
+          if (dismissed.indexOf(ann.id) !== -1) return;
           hasVisible = true;
 
-          const icon = icons[ann.severity] || '📢';
-          const date = new Date(ann.createdAt).toLocaleString('ko-KR', {
+          var icon = icons[ann.severity] || '📢';
+          var date = new Date(ann.createdAt).toLocaleString('ko-KR', {
             year: 'numeric', month: 'long', day: 'numeric',
-            hour: '2-digit', minute: '2-digit'. hour12: false
+            hour: '2-digit', minute: '2-digit', hour12: false
           });
 
-          const bodyHtml = (ann.body && typeof marked !== 'undefined')
-            ? marked.parse(ann.body)
-            : (ann.body || '')
-                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;').replace(/\r?\n/g, '<br>');
+          var bodyHtml = '';
+          if (ann.body) {
+            bodyHtml = (typeof marked !== 'undefined')
+              ? marked.parse(ann.body)
+              : ann.body.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                        .replace(/>/g,'&gt;').replace(/\r?\n/g,'<br>');
+          }
 
-          const el = document.createElement('div');
+          var el = document.createElement('div');
           el.className = 'ann ann-' + ann.severity;
           el.id = 'ann-' + ann.id;
           el.innerHTML =
@@ -133,14 +133,13 @@ status-website:
                         document.querySelector('article.down') ||
                         document.querySelector('article');
           if (header && header.parentNode && article) {
-            // header 바로 다음, article 바로 앞에 삽입
             header.parentNode.insertBefore(wrap, header.nextSibling);
             wrap.style.display = 'block';
             return true;
           }
           return false;
         }
-        
+
         if (!tryInsert()) {
           var observer = new MutationObserver(function() {
             if (tryInsert()) observer.disconnect();
