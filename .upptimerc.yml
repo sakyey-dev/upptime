@@ -34,8 +34,8 @@ status-website:
   robotsText: "User-agent: * \n Disallow: /"
   # customHeadHtml, customBodyHtml은 맨 위에 announcement 배너를 위한 editing임.
   customHeadHtml: |
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
-  <style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <style>
     #ann-wrap { margin: 0 0 12px 0; }
     .ann {
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -66,7 +66,7 @@ status-website:
       transition: opacity .15s;
     }
     .ann-close:hover { opacity: 0.7; }
-  </style>
+    </style>
 
   customBodyHtml: |
     <div id="ann-wrap" style="display:none"></div>
