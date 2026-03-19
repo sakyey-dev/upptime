@@ -53,9 +53,9 @@ body:
       required: true
 
   - type: textarea
-    id: details
+    id: descriptions
     attributes:
-      label: Details
+      label: Descriptions
       description: Describe the maintenance work. This will appear in the announcement banner.
       placeholder: |
         Reason: OS upgrade on all production nodes
