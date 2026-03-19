@@ -104,12 +104,12 @@ jobs:
                 | split("### Descriptions")
                 | if length > 1 then .[1] else "" end
                 | split("### Checklist")[0]
-                | split("### Expires On")[0]
+                | split("### Expires On (Optional)")[0]
                 | gsub("^[\\r\\n]+|[\\r\\n]+$"; "")
               ),
               expires: (
                 .body
-                | split("### Expires On")
+                | split("### Expires On (Optional)")
                 | if length > 1 then .[1] else "" end
                 | split("###")[0]
                 | gsub("^[\\r\\n\\s]+|[\\r\\n\\s]+$"; "")
