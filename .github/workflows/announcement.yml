@@ -1,4 +1,4 @@
-name: Sync Announcements
+name: Announcements CI
 
 on:
   issues:
