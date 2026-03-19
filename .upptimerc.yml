@@ -166,12 +166,12 @@ status-website:
     </script>
 
 workflowSchedule:
-  graphs: "0 * * * *"
-  responseTime: "0 3 * * *"
-  staticSite: "0 2 * * *"
-  summary: "0 0 * * *"
-  updates: "30 3 * * *"
-  uptime: "*/10 * * * *"
+  summary: "0 0 * * *" # updates every 00:00
+  staticSite: "0 1 * * *" # updates every 01:00 (after summary CI)
+  responseTime: "0 2 * * *" # updates every 02:00 
+  updates: "30 2 * * *" # updates every 02:30 (after responseTime CI)
+  graphs: "0 3 * * *" # updates every 03:00 (after responseTime CI)
+  uptime: "*/10 * * * *" # for fallback checks. using manual triggers.
 
 # Upptime also supports notifications, assigning issues, and more
 # See https://upptime.js.org/docs/configuration
