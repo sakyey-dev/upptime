@@ -58,7 +58,7 @@ jobs:
               | sed 's/User Page/user-page/g' \
               | sed 's/Generic API/generic-api/g' \
               | sed 's/Streaming API/streaming-api/g' \
-              | sed 's/ActivityPub/activitypub/g' \
+              | sed 's/ActivityPub/activity-pub/g' \
               | tr '\n' ',' \
               | sed 's/,$//'
           }
@@ -155,7 +155,7 @@ jobs:
               | sed 's/User Page/user-page/g' \
               | sed 's/Generic API/generic-api/g' \
               | sed 's/Streaming API/streaming-api/g' \
-              | sed 's/ActivityPub/activitypub/g' \
+              | sed 's/ActivityPub/activity-pub/g' \
               | tr '\n' ',' \
               | sed 's/,$//'
           }
