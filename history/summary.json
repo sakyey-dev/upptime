@@ -5,19 +5,17 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
     "status": "up",
-    "uptime": "99.99%",
-    "uptimeDay": "99.78%",
-    "uptimeWeek": "99.97%",
-    "uptimeMonth": "99.99%",
-    "uptimeYear": "99.99%",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
     "time": 1479,
     "timeDay": 1736,
     "timeWeek": 1613,
     "timeMonth": 1479,
     "timeYear": 1479,
-    "dailyMinutesDown": {
-      "2026-04-17": 3
-    }
+    "dailyMinutesDown": {}
   },
   {
     "name": "User Page",
