@@ -4,19 +4,19 @@
     "url": "https://sakyey.kr/about",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
-    "time": 1721,
-    "timeDay": 8869,
-    "timeWeek": 3318,
-    "timeMonth": 1962,
-    "timeYear": 1721,
+    "status": "up",
+    "uptime": "99.98%",
+    "uptimeDay": "99.35%",
+    "uptimeWeek": "99.91%",
+    "uptimeMonth": "99.98%",
+    "uptimeYear": "99.98%",
+    "time": 1716,
+    "timeDay": 6391,
+    "timeWeek": 3130,
+    "timeMonth": 1947,
+    "timeYear": 1716,
     "dailyMinutesDown": {
-      "2026-04-24": 0
+      "2026-04-24": 9
     }
   },
   {
@@ -60,19 +60,19 @@
     "url": "https://sakyey.kr/api/v1/streaming/health",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "streaming-api",
-    "status": "down",
-    "uptime": "100.00%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "100.00%",
-    "uptimeYear": "100.00%",
+    "status": "up",
+    "uptime": "99.98%",
+    "uptimeDay": "99.35%",
+    "uptimeWeek": "99.91%",
+    "uptimeMonth": "99.98%",
+    "uptimeYear": "99.98%",
     "time": 166,
-    "timeDay": 198,
+    "timeDay": 188,
     "timeWeek": 167,
     "timeMonth": 172,
     "timeYear": 166,
     "dailyMinutesDown": {
-      "2026-04-24": 0
+      "2026-04-24": 9
     }
   },
   {
