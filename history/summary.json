@@ -4,18 +4,20 @@
     "url": "https://sakyey.kr/about",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 1497,
-    "timeDay": 1142,
-    "timeWeek": 1692,
-    "timeMonth": 1544,
-    "timeYear": 1497,
-    "dailyMinutesDown": {}
+    "time": 1721,
+    "timeDay": 8869,
+    "timeWeek": 3318,
+    "timeMonth": 1962,
+    "timeYear": 1721,
+    "dailyMinutesDown": {
+      "2026-04-24": 0
+    }
   },
   {
     "name": "User Page",
@@ -28,11 +30,11 @@
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 267,
-    "timeDay": 314,
-    "timeWeek": 268,
-    "timeMonth": 258,
-    "timeYear": 267,
+    "time": 268,
+    "timeDay": 346,
+    "timeWeek": 284,
+    "timeMonth": 262,
+    "timeYear": 268,
     "dailyMinutesDown": {}
   },
   {
@@ -47,9 +49,9 @@
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
     "time": 179,
-    "timeDay": 136,
-    "timeWeek": 171,
-    "timeMonth": 181,
+    "timeDay": 183,
+    "timeWeek": 170,
+    "timeMonth": 180,
     "timeYear": 179,
     "dailyMinutesDown": {}
   },
@@ -58,18 +60,20 @@
     "url": "https://sakyey.kr/api/v1/streaming/health",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "streaming-api",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 165,
-    "timeDay": 136,
-    "timeWeek": 160,
-    "timeMonth": 171,
-    "timeYear": 165,
-    "dailyMinutesDown": {}
+    "time": 166,
+    "timeDay": 198,
+    "timeWeek": 167,
+    "timeMonth": 172,
+    "timeYear": 166,
+    "dailyMinutesDown": {
+      "2026-04-24": 0
+    }
   },
   {
     "name": "ActivityPub",
@@ -83,9 +87,9 @@
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
     "time": 162,
-    "timeDay": 136,
-    "timeWeek": 158,
-    "timeMonth": 166,
+    "timeDay": 153,
+    "timeWeek": 156,
+    "timeMonth": 165,
     "timeYear": 162,
     "dailyMinutesDown": {}
   }
