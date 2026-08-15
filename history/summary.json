@@ -4,20 +4,21 @@
     "url": "https://sakyey.kr/about",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
-    "status": "up",
+    "status": "down",
     "uptime": "99.97%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
+    "uptimeDay": "99.91%",
+    "uptimeWeek": "99.99%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.97%",
-    "time": 1393,
-    "timeDay": 1110,
-    "timeWeek": 976,
-    "timeMonth": 955,
-    "timeYear": 1393,
+    "time": 1391,
+    "timeDay": 1082,
+    "timeWeek": 985,
+    "timeMonth": 963,
+    "timeYear": 1391,
     "dailyMinutesDown": {
       "2026-06-16": 40,
-      "2026-06-18": 30
+      "2026-06-18": 30,
+      "2026-08-15": 1
     }
   },
   {
@@ -25,20 +26,21 @@
     "url": "https://sakyey.kr/@sakyey",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "user-page",
-    "status": "up",
+    "status": "down",
     "uptime": "99.97%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
+    "uptimeDay": "99.93%",
+    "uptimeWeek": "99.99%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.97%",
-    "time": 702,
-    "timeDay": 992,
-    "timeWeek": 731,
-    "timeMonth": 717,
-    "timeYear": 702,
+    "time": 704,
+    "timeDay": 931,
+    "timeWeek": 728,
+    "timeMonth": 721,
+    "timeYear": 704,
     "dailyMinutesDown": {
       "2026-06-16": 40,
-      "2026-06-18": 30
+      "2026-06-18": 30,
+      "2026-08-15": 1
     }
   },
   {
@@ -46,20 +48,21 @@
     "url": "https://sakyey.kr/api/v1/instance",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "generic-api",
-    "status": "up",
+    "status": "down",
     "uptime": "99.97%",
-    "uptimeDay": "100.00%",
-    "uptimeWeek": "100.00%",
+    "uptimeDay": "99.95%",
+    "uptimeWeek": "99.99%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.97%",
-    "time": 485,
-    "timeDay": 272,
-    "timeWeek": 545,
-    "timeMonth": 526,
-    "timeYear": 485,
+    "time": 486,
+    "timeDay": 628,
+    "timeWeek": 540,
+    "timeMonth": 541,
+    "timeYear": 486,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29
+      "2026-06-18": 29,
+      "2026-08-15": 1
     }
   },
   {
@@ -67,20 +70,21 @@
     "url": "https://sakyey.kr/api/v1/streaming/health",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "streaming-api",
-    "status": "up",
+    "status": "down",
     "uptime": "99.97%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.97%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.97%",
-    "time": 517,
-    "timeDay": 650,
-    "timeWeek": 527,
-    "timeMonth": 444,
-    "timeYear": 517,
+    "time": 518,
+    "timeDay": 655,
+    "timeWeek": 522,
+    "timeMonth": 451,
+    "timeYear": 518,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29
+      "2026-06-18": 29,
+      "2026-08-15": 0
     }
   },
   {
@@ -88,20 +92,21 @@
     "url": "https://sakyey.kr/.well-known/webfinger?resource=acct:sakyey@sakyey.kr",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "activity-pub",
-    "status": "up",
+    "status": "down",
     "uptime": "99.97%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.97%",
-    "time": 472,
-    "timeDay": 226,
-    "timeWeek": 329,
-    "timeMonth": 458,
-    "timeYear": 472,
+    "time": 473,
+    "timeDay": 658,
+    "timeWeek": 330,
+    "timeMonth": 466,
+    "timeYear": 473,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29
+      "2026-06-18": 29,
+      "2026-08-15": 0
     }
   }
 ]
