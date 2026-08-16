@@ -5,11 +5,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
     "status": "up",
-    "uptime": "99.96%",
-    "uptimeDay": "99.33%",
-    "uptimeWeek": "99.90%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.96%",
+    "uptime": "99.97%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.97%",
     "time": 1389,
     "timeDay": 1041,
     "timeWeek": 987,
@@ -17,8 +17,7 @@
     "timeYear": 1389,
     "dailyMinutesDown": {
       "2026-06-16": 40,
-      "2026-06-18": 30,
-      "2026-08-15": 10
+      "2026-06-18": 30
     }
   },
   {
@@ -27,11 +26,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "user-page",
     "status": "up",
-    "uptime": "99.96%",
-    "uptimeDay": "99.34%",
-    "uptimeWeek": "99.91%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.96%",
+    "uptime": "99.97%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.97%",
     "time": 705,
     "timeDay": 925,
     "timeWeek": 752,
@@ -39,8 +38,7 @@
     "timeYear": 705,
     "dailyMinutesDown": {
       "2026-06-16": 40,
-      "2026-06-18": 30,
-      "2026-08-15": 9
+      "2026-06-18": 30
     }
   },
   {
@@ -49,11 +47,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "generic-api",
     "status": "up",
-    "uptime": "99.96%",
-    "uptimeDay": "99.36%",
-    "uptimeWeek": "99.91%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.96%",
+    "uptime": "99.97%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.97%",
     "time": 487,
     "timeDay": 637,
     "timeWeek": 553,
@@ -61,8 +59,7 @@
     "timeYear": 487,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29,
-      "2026-08-15": 9
+      "2026-06-18": 29
     }
   },
   {
@@ -71,11 +68,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "streaming-api",
     "status": "up",
-    "uptime": "99.96%",
-    "uptimeDay": "99.37%",
-    "uptimeWeek": "99.91%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.96%",
+    "uptime": "99.97%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.97%",
     "time": 518,
     "timeDay": 621,
     "timeWeek": 530,
@@ -83,8 +80,7 @@
     "timeYear": 518,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29,
-      "2026-08-15": 9
+      "2026-06-18": 29
     }
   },
   {
@@ -93,11 +89,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "activity-pub",
     "status": "up",
-    "uptime": "99.96%",
-    "uptimeDay": "99.39%",
-    "uptimeWeek": "99.91%",
-    "uptimeMonth": "99.98%",
-    "uptimeYear": "99.96%",
+    "uptime": "99.97%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "99.97%",
     "time": 474,
     "timeDay": 622,
     "timeWeek": 362,
@@ -105,8 +101,7 @@
     "timeYear": 474,
     "dailyMinutesDown": {
       "2026-06-16": 39,
-      "2026-06-18": 29,
-      "2026-08-15": 9
+      "2026-06-18": 29
     }
   }
 ]
