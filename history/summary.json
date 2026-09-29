@@ -4,17 +4,17 @@
     "url": "https://sakyey.kr/about",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
-    "status": "down",
-    "uptime": "96.97%",
-    "uptimeDay": "99.99%",
-    "uptimeWeek": "100.00%",
-    "uptimeMonth": "80.74%",
-    "uptimeYear": "96.97%",
-    "time": 2140,
-    "timeDay": 10395,
-    "timeWeek": 3560,
-    "timeMonth": 5469,
-    "timeYear": 2140,
+    "status": "up",
+    "uptime": "96.96%",
+    "uptimeDay": "99.33%",
+    "uptimeWeek": "99.90%",
+    "uptimeMonth": "80.72%",
+    "uptimeYear": "96.96%",
+    "time": 2136,
+    "timeDay": 7318,
+    "timeWeek": 3293,
+    "timeMonth": 5346,
+    "timeYear": 2136,
     "dailyMinutesDown": {
       "2026-06-16": 40,
       "2026-06-18": 30,
@@ -25,7 +25,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 416,
-      "2026-09-29": 0
+      "2026-09-29": 10
     }
   },
   {
