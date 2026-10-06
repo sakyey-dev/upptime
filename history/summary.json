@@ -4,17 +4,17 @@
     "url": "https://sakyey.kr/about",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "main-page",
-    "status": "down",
-    "uptime": "97.06%",
-    "uptimeDay": "99.88%",
-    "uptimeWeek": "99.98%",
+    "status": "up",
+    "uptime": "97.05%",
+    "uptimeDay": "97.18%",
+    "uptimeWeek": "99.60%",
     "uptimeMonth": "86.58%",
-    "uptimeYear": "97.06%",
-    "time": 2103,
-    "timeDay": 1141,
-    "timeWeek": 3066,
-    "timeMonth": 3871,
-    "timeYear": 2103,
+    "uptimeYear": "97.05%",
+    "time": 2098,
+    "timeDay": 1022,
+    "timeWeek": 2850,
+    "timeMonth": 3783,
+    "timeYear": 2098,
     "dailyMinutesDown": {
       "2026-06-16": 40,
       "2026-06-18": 30,
@@ -25,7 +25,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 416,
-      "2026-10-06": 2
+      "2026-10-06": 41
     }
   },
   {
@@ -33,17 +33,17 @@
     "url": "https://sakyey.kr/@sakyey",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "user-page",
-    "status": "down",
-    "uptime": "97.06%",
-    "uptimeDay": "99.93%",
-    "uptimeWeek": "99.99%",
+    "status": "up",
+    "uptime": "97.05%",
+    "uptimeDay": "97.23%",
+    "uptimeWeek": "99.60%",
     "uptimeMonth": "86.58%",
-    "uptimeYear": "97.06%",
-    "time": 1259,
-    "timeDay": 306,
-    "timeWeek": 596,
-    "timeMonth": 3080,
-    "timeYear": 1259,
+    "uptimeYear": "97.05%",
+    "time": 1257,
+    "timeDay": 452,
+    "timeWeek": 612,
+    "timeMonth": 3009,
+    "timeYear": 1257,
     "dailyMinutesDown": {
       "2026-06-16": 40,
       "2026-06-18": 30,
@@ -54,7 +54,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 415,
-      "2026-10-06": 1
+      "2026-10-06": 40
     }
   },
   {
@@ -62,17 +62,17 @@
     "url": "https://sakyey.kr/api/v1/instance",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "generic-api",
-    "status": "down",
-    "uptime": "97.06%",
-    "uptimeDay": "99.94%",
-    "uptimeWeek": "99.99%",
+    "status": "up",
+    "uptime": "97.05%",
+    "uptimeDay": "97.24%",
+    "uptimeWeek": "99.61%",
     "uptimeMonth": "86.58%",
-    "uptimeYear": "97.06%",
-    "time": 1052,
-    "timeDay": 428,
-    "timeWeek": 466,
-    "timeMonth": 2880,
-    "timeYear": 1052,
+    "uptimeYear": "97.05%",
+    "time": 1048,
+    "timeDay": 341,
+    "timeWeek": 432,
+    "timeMonth": 2798,
+    "timeYear": 1048,
     "dailyMinutesDown": {
       "2026-06-16": 39,
       "2026-06-18": 29,
@@ -83,7 +83,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 413,
-      "2026-10-06": 1
+      "2026-10-06": 40
     }
   },
   {
@@ -92,11 +92,11 @@
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "streaming-api",
     "status": "down",
-    "uptime": "97.07%",
-    "uptimeDay": "99.96%",
-    "uptimeWeek": "99.99%",
+    "uptime": "97.05%",
+    "uptimeDay": "97.21%",
+    "uptimeWeek": "99.60%",
     "uptimeMonth": "86.58%",
-    "uptimeYear": "97.07%",
+    "uptimeYear": "97.05%",
     "time": 1057,
     "timeDay": 211,
     "timeWeek": 456,
@@ -112,7 +112,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 412,
-      "2026-10-06": 1
+      "2026-10-06": 40
     }
   },
   {
@@ -120,17 +120,17 @@
     "url": "https://sakyey.kr/.well-known/webfinger?resource=acct:sakyey@sakyey.kr",
     "icon": "https://icons.duckduckgo.com/ip3/sakyey.kr.ico",
     "slug": "activity-pub",
-    "status": "down",
-    "uptime": "97.07%",
-    "uptimeDay": "99.97%",
-    "uptimeWeek": "100.00%",
+    "status": "up",
+    "uptime": "97.05%",
+    "uptimeDay": "97.26%",
+    "uptimeWeek": "99.61%",
     "uptimeMonth": "86.58%",
-    "uptimeYear": "97.07%",
-    "time": 1034,
-    "timeDay": 206,
-    "timeWeek": 339,
-    "timeMonth": 2803,
-    "timeYear": 1034,
+    "uptimeYear": "97.05%",
+    "time": 1031,
+    "timeDay": 193,
+    "timeWeek": 320,
+    "timeMonth": 2723,
+    "timeYear": 1031,
     "dailyMinutesDown": {
       "2026-06-16": 39,
       "2026-06-18": 29,
@@ -141,7 +141,7 @@
       "2026-09-06": 1440,
       "2026-09-05": 1440,
       "2026-09-04": 411,
-      "2026-10-06": 0
+      "2026-10-06": 40
     }
   }
 ]
