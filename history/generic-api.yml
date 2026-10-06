@@ -1,7 +1,7 @@
 url: https://sakyey.kr/api/v1/instance
-status: up
-code: 200
-responseTime: 699
-lastUpdated: 2026-10-06T08:38:23.359Z
+status: down
+code: 521
+responseTime: 157
+lastUpdated: 2026-10-06T11:40:39.831Z
 startTime: 2026-03-19T06:57:29.639Z
 generator: Upptime <https://github.com/upptime/upptime>
