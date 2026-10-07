@@ -1,7 +1,7 @@
 url: https://sakyey.kr/api/v1/streaming/health
 status: down
-code: 521
-responseTime: 161
-lastUpdated: 2026-10-06T11:40:56.092Z
+code: 404
+responseTime: 1557
+lastUpdated: 2026-10-07T08:13:47.544Z
 startTime: 2026-03-19T06:57:30.159Z
 generator: Upptime <https://github.com/upptime/upptime>
